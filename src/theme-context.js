@@ -11,6 +11,7 @@ export const themes = {
         RatingColor: 'rgb(255, 0, 85)',
         PaginationButtonClass: "light-button",
         themeButtonImg: sunImage,
+        navLinkClass: "light-link",
     },
     dark: {
         TextColor: 'black',
@@ -18,6 +19,7 @@ export const themes = {
         RatingColor: 'red',
         PaginationButtonClass: "dark-button",
         themeButtonImg: moonImage,
+        navLinkClass: "dark-link",
     },
 };
 

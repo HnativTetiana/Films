@@ -14,7 +14,7 @@ body {
 .main-container {
     background-color: burlywood;
     width: 100%;
-    padding: 10px 0px;
+    padding: 20px 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -89,6 +89,7 @@ ul {
 }
 
 /* Pagination */
+
 .pagination-buttons {
     display: flex;
     justify-content: space-around;
@@ -175,5 +176,52 @@ ul {
     font-weight: bold;
     font-size: 25px;
     text-align: center;
-    color:brown;
+    color: brown;
+}
+
+/* Nav-menu */
+
+.nav-menu {
+    width: calc(100vw - 20%);
+}
+
+.nav-menu-list {
+    background-color: rgb(222, 135, 171);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+.link {
+    text-decoration: none;
+    font-size: 28px;
+}
+
+.link:hover,
+.link:focus {
+    color: blanchedalmond;
+}
+
+.light-link {
+    color: rgb(70, 6, 100);
+}
+
+.dark-link {
+    color: rgb(40, 6, 150);
+}
+
+/* --------------------------------------------------------------------- Adaptive ---------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+    .nav-menu {
+        width: calc(100vw - 10%);
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-menu-list {
+        flex-direction: column;
+        gap: 50px;
+    }
 }

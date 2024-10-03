@@ -1,102 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Film from "./Film";
 
 import Pagination from "./Pagination";
 
-class Films extends React.Component {
+import useFetchMovies from "../hooks/useFetchMovies";
 
-    constructor() {
-        super();
+const Films = (props) => {
+    const [currentPage, setCurrentPage] = useState(1);
 
-        this.state = {
-            data: [],
-            page: 1,
-            totalPages: 0,
-            error: null,
-            stateFilmId: null,
-        };
+    const [stateFilmId, setFilmId] = useState(null);
 
-        this.pageHandler = this.pageHandler.bind(this);
+    const filmsLink = (filmCategory) => `https://api.themoviedb.org/3/movie/${filmCategory}?api_key=fb073839532ae8f5b7f1255e18af7e65&page=`;
 
-        this.FilmIdHandler = this.FilmIdHandler.bind(this);
-    }
+    const { data, totalPages, error } = useFetchMovies(filmsLink(props.filmCategory), currentPage);
 
-    async fetchData(page) {
-        try {
-            const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=fb073839532ae8f5b7f1255e18af7e65&page=${page}`);
+    const pageHandler = (value) => {
+        setCurrentPage(currentPage + value);
+        setFilmId(null);
+    };
 
-            if (!response.ok) {
-                throw new Error(`Failed with status code ${response.status}`);
-            }
+    const FilmIdHandler = (filmId) => setFilmId(filmId);
 
-            const data = await response.json();
-
-            this.setState({ data: data.results, totalPages: data.total_pages });
-
-        } catch (error) {
-            this.setState({ error: error.message });
-        }
-    }
-
-    async componentDidMount() {
-        this.fetchData(this.state.page);
-    }
-
-    pageHandler = (value) => {
-        this.setState((prevState) => {
-            const newPage = prevState.page + value;
-
-            if (newPage > 0 && newPage <= prevState.totalPages) {
-                return { page: newPage };
-            }
-            
-            return null;
-        }, () => {
-            this.fetchData(this.state.page);
-        });
-        this.setState({ stateFilmId: null });
-    }
-
-    FilmIdHandler = (filmId) => this.setState({ stateFilmId: filmId });
-
-    render() {
-        const { data, error, stateFilmId, page, totalPages } = this.state;
-
-        if (error) {
-            return (
-                <div className="error ">
-                    <h2>Error : {error}</h2>
-                </div>
-            )
-        }
-
+    if (error) {
         return (
-            <>
-                <ul className="films-list">
-                    {
-                        data.map((film =>
-                            <Film
-                                key={film.id}
-                                film={film}
-                                stateFilmId={stateFilmId}
-                                FilmIdHandler={this.FilmIdHandler}
-                            >
-                            </Film>
-
-                        ))
-                    }
-                </ul>
-
-                <Pagination
-                    page={page}
-                    totalPages={totalPages}
-                    pageHandler={this.pageHandler}
-                />
-            </>
+            <div className="error ">
+                <h2>Error : {error}</h2>
+            </div>
         )
-
     }
+
+    return (
+        <>
+            <ul className="films-list">
+                {
+                    data.map((film =>
+                        <Film
+                            key={film.id}
+                            film={film}
+                            stateFilmId={stateFilmId}
+                            FilmIdHandler={FilmIdHandler}
+                        >
+                        </Film>
+
+                    ))
+                }
+            </ul>
+
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                pageHandler={pageHandler}
+            />
+        </>
+    )
+
 }
 
 export default Films;

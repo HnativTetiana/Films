@@ -1,21 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { ThemeContext } from "../theme-context.js";
 
-class ThemeButton extends React.Component {
-    render() {
-        return (
-            <ThemeContext.Consumer>
-                {
-                    ({ theme, toggleTheme }) => (
-                        <button className="theme-button" onClick={toggleTheme}>
-                            <img src={theme.themeButtonImg} alt="icon" className="theme-img" />
-                        </button>
-                    )
-                }
-            </ThemeContext.Consumer>
-        )
-    }
+const ThemeButton = () => {
+
+    const { theme, toggleTheme } = useContext(ThemeContext);
+
+    return (
+        <button className="theme-button" onClick={toggleTheme}>
+            <img src={theme.themeButtonImg} alt="icon" className="theme-img" />
+        </button>
+    )
+
+
+
 }
 
 export default ThemeButton;

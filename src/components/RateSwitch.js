@@ -1,40 +1,30 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 
 import { ThemeContext } from "../theme-context.js";
 
-class RateSwitch extends React.Component {
+const RateSwitch = (props) => {
 
-    constructor() {
-        super();
-        this.state = { switch: false };
-        this.SwitchHandler = this.SwitchHandler.bind(this);
-    }
+    const [switchState, setSwitchState] = useState(false);
 
-    SwitchHandler = () => this.setState({ switch: !this.state.switch });
+    const SwitchHandler = () => setSwitchState(!switchState);
 
-    render() {
-        return (
-            <ThemeContext.Consumer>
-                {
-                    ({ theme }) => (
-                        <div className='rating'>
-                            {
-                                this.state.switch && <p className="show-rating" style={{ color: theme.RatingColor }}>{this.props.popularity}</p>
-                            }
+    const { theme } = useContext(ThemeContext);
 
-                            <p
-                                className="show-text"
-                                style={{ color: theme.RatingColor }}
-                                onClick={this.SwitchHandler}
-                            >
-                                {!this.state.switch ? "Show Rate" : "Hide Rate"}
-                            </p>
-                        </div>
-                    )
-                }
-            </ThemeContext.Consumer>
-        )
-    }
+    return (
+        <div className='rating'>
+            {
+                switchState && <p className="show-rating" style={{ color: theme.RatingColor }}>{props.popularity}</p>
+            }
+
+            <p
+                className="show-text"
+                style={{ color: theme.RatingColor }}
+                onClick={SwitchHandler}
+            >
+                {!switchState ? "Show Rate" : "Hide Rate"}
+            </p>
+        </div>
+    )
 }
 
 
