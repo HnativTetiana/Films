@@ -1,0 +1,270 @@
+// -------------------------------------------- Variables --------------------------------------------
+
+// colors
+@background-color: #ffebcd;
+@blue-color: #0000ff;
+@darkblue-color: #00008a;
+@brown-color: #a52a2a;
+@purple-color: #800080;
+@cyan-color: #00ffff;
+
+//fonts
+@font-size-20: 20px;
+@font-size-25: 25px;
+
+// -------------------------------------------- Mixins --------------------------------------------
+
+.flex(@gap: 0, @flex-direction: row, @justify-content: center, @align-items: center) {
+    display: flex;
+    gap: @gap;
+    flex-direction: @flex-direction;
+    justify-content: @justify-content;
+    align-items: @align-items;
+}
+
+//  Functions:  spin, saturate, lighten 
+
+// -------------------------------------------- Common --------------------------------------------
+
+body {
+    background-color: @background-color;
+}
+
+ul,
+ol {
+    list-style: none;
+    padding: 0 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+// -------------------------------------------- MoviesPage --------------------------------------------
+
+.main-container {
+    background-color: #deb887;
+    width: 100vw;
+    padding: 20px 0;
+
+    header {
+        .flex;
+
+        .nav-menu {
+            width: calc(100vw - 15%);
+
+            .nav-menu-list {
+                background-color: rgb(222, 135, 171);
+                .flex(@justify-content: space-around);
+                padding: 20px;
+
+                .link {
+                    font-size: 28px;
+
+                    &:hover,
+                    &:focus {
+                        color: @background-color;
+                    }
+                }
+
+                .light-link {
+                    color: spin(saturate(@purple-color, 50%), 15);
+                }
+
+                .dark-link {
+                    color: spin(saturate(@darkblue-color, 50%), -15);
+                }
+
+                @media (max-width: 768px) {
+                    flex-direction: column;
+                    gap: 50px;
+                }
+            }
+        }
+    }
+
+    main {
+        .flex(@gap: 20px, @flex-direction: column);
+        text-align: center;
+
+        .main-title {
+            font-size: 35px;
+            margin-bottom: 5px;
+        }
+
+        // -------------------------------------------- ThemeButton --------------------------------------------
+
+        .theme-button {
+            background-color: spin(saturate(@cyan-color, 50%), 15);
+            border-color: @blue-color;
+            cursor: pointer;
+            padding: 3px;
+
+            &:focus,
+            &:hover {
+                background-color: spin(lighten(@blue-color, 10%), -15);
+            }
+
+            .theme-img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        // -------------------------------------------- Films --------------------------------------------
+
+        // loader
+        .loader-container {
+            min-height: 400px;
+            .flex;
+
+            .loader {
+                border: 16px solid @background-color;
+                border-top: 16px solid spin(saturate(@cyan-color, 50%), 15);
+                border-radius: 50%;
+                width: 80px;
+                height: 80px;
+                animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+
+        // error
+        .error {
+            font-size: @font-size-20;
+            color: saturate(@brown-color, -20%);
+            height: 100vh;
+        }
+
+        .films-list {
+            .flex(@gap: 20px, @align-items: stretch);
+            flex-wrap: wrap;
+
+            // -------------------------------------------- Film --------------------------------------------
+
+            .films-item {
+                max-width: 300px;
+                border: 2px solid @blue-color;
+                padding-top: 15px;
+
+                .film-img {
+                    width: 200px;
+                    padding: 0 10px;
+                    cursor: pointer;
+                }
+
+                .film-description {
+                    border-top: 1px solid @purple-color;
+                    border-bottom: 1px solid @purple-color;
+                    padding: 5px;
+                }
+
+                // -------------------------------------------- RateSwitch --------------------------------------------
+
+                .rating {
+                    .flex(@gap: 20px);
+
+                    .show-rating {
+                        font-size: @font-size-20;
+                        color: @darkblue-color;
+                    }
+
+                    .show-text {
+                        font-size: @font-size-25;
+                        color: @blue-color;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------- Pagination --------------------------------------------
+
+        .current-page {
+            font-size: @font-size-25;
+        }
+
+        .pagination-buttons {
+            .flex(@justify-content: space-around);
+            width: 100%;
+            padding: 20px 0;
+
+            button {
+                font-size: @font-size-20;
+                border-color: @blue-color;
+                border-radius: 5px;
+                padding: 8px 5px;
+                cursor: pointer;
+
+                &:hover,
+                &:focus {
+                    background-color: @blue-color;
+                    color: #ffffff;
+                }
+
+                &:disabled {
+                    background-color: rgba(128, 128, 128, 0.5);
+                    color: #000000;
+                }
+            }
+
+            .light-button {
+                background-color: @cyan-color;
+                color: @darkblue-color;
+            }
+
+            .dark-button {
+                background-color: @darkblue-color;
+                color: @cyan-color;
+            }
+        }
+    }
+}
+
+// -------------------------------------------- PopUp form (Film) --------------------------------------------
+
+.modal-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+
+    width: 200px;
+    height: 80px;
+    padding: 10px;
+    .flex;
+
+    background-color: #ffa500;
+    border-radius: 10px;
+    border: 2px solid @brown-color;
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        width: 25px;
+        height: 25px;
+
+        background-color: #ffff00;
+        border-color: #ffff00;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .release-date {
+        font-weight: bold;
+        font-size: @font-size-25;
+        text-align: center;
+        color: @brown-color;
+    }
+}

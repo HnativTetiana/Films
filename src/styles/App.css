@@ -1,0 +1,218 @@
+body {
+  background-color: #ffebcd;
+}
+ul,
+ol {
+  list-style: none;
+  padding: 0 10px;
+}
+a {
+  text-decoration: none;
+}
+.main-container {
+  background-color: #deb887;
+  width: 100vw;
+  padding: 20px 0;
+}
+.main-container header {
+  display: flex;
+  gap: 0;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.main-container header .nav-menu {
+  width: calc(100vw - 15%);
+}
+.main-container header .nav-menu .nav-menu-list {
+  background-color: #de87ab;
+  display: flex;
+  gap: 0;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+}
+.main-container header .nav-menu .nav-menu-list .link {
+  font-size: 28px;
+}
+.main-container header .nav-menu .nav-menu-list .link:hover,
+.main-container header .nav-menu .nav-menu-list .link:focus {
+  color: #ffebcd;
+}
+.main-container header .nav-menu .nav-menu-list .light-link {
+  color: #800060;
+}
+.main-container header .nav-menu .nav-menu-list .dark-link {
+  color: #00228a;
+}
+@media (max-width: 768px) {
+  .main-container header .nav-menu .nav-menu-list {
+    flex-direction: column;
+    gap: 50px;
+  }
+}
+.main-container main {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.main-container main .main-title {
+  font-size: 35px;
+  margin-bottom: 5px;
+}
+.main-container main .theme-button {
+  background-color: #00bfff;
+  border-color: #0000ff;
+  cursor: pointer;
+  padding: 3px;
+}
+.main-container main .theme-button:focus,
+.main-container main .theme-button:hover {
+  background-color: #3366ff;
+}
+.main-container main .theme-button .theme-img {
+  width: 30px;
+  height: 30px;
+}
+.main-container main .loader-container {
+  min-height: 400px;
+  display: flex;
+  gap: 0;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.main-container main .loader-container .loader {
+  border: 16px solid #ffebcd;
+  border-top: 16px solid #00bfff;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.main-container main .error {
+  font-size: 20px;
+  color: #903f3f;
+  height: 100vh;
+}
+.main-container main .films-list {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.main-container main .films-list .films-item {
+  max-width: 300px;
+  border: 2px solid #0000ff;
+  padding-top: 15px;
+}
+.main-container main .films-list .films-item .film-img {
+  width: 200px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.main-container main .films-list .films-item .film-description {
+  border-top: 1px solid #800080;
+  border-bottom: 1px solid #800080;
+  padding: 5px;
+}
+.main-container main .films-list .films-item .rating {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.main-container main .films-list .films-item .rating .show-rating {
+  font-size: 20px;
+  color: #00008a;
+}
+.main-container main .films-list .films-item .rating .show-text {
+  font-size: 25px;
+  color: #0000ff;
+  cursor: pointer;
+}
+.main-container main .current-page {
+  font-size: 25px;
+}
+.main-container main .pagination-buttons {
+  display: flex;
+  gap: 0;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+.main-container main .pagination-buttons button {
+  font-size: 20px;
+  border-color: #0000ff;
+  border-radius: 5px;
+  padding: 8px 5px;
+  cursor: pointer;
+}
+.main-container main .pagination-buttons button:hover,
+.main-container main .pagination-buttons button:focus {
+  background-color: #0000ff;
+  color: #ffffff;
+}
+.main-container main .pagination-buttons button:disabled {
+  background-color: rgba(128, 128, 128, 0.5);
+  color: #000000;
+}
+.main-container main .pagination-buttons .light-button {
+  background-color: #00ffff;
+  color: #00008a;
+}
+.main-container main .pagination-buttons .dark-button {
+  background-color: #00008a;
+  color: #00ffff;
+}
+.modal-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 200px;
+  height: 80px;
+  padding: 10px;
+  display: flex;
+  gap: 0;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffa500;
+  border-radius: 10px;
+  border: 2px solid #a52a2a;
+}
+.modal-container .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  background-color: #ffff00;
+  border-color: #ffff00;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal-container .release-date {
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+  color: #a52a2a;
+}

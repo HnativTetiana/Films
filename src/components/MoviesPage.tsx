@@ -1,26 +1,20 @@
-import React, { useState } from "react";
-
-import { ThemeContext, themes } from "../theme-context.js";
-
-import Films from "./Films.js";
-
-import ThemeButton from "./ThemeButton.js";
-
+import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Movies = (props) => {
-    const [theme, setTheme] = useState(themes.light);
+import Films from "./Films.tsx";
+import ThemeButton from "./ThemeButton.tsx";
+import { themeSelector } from "../store/selectors.ts";
 
-    const toggleTheme = () => {
-        setTheme(prevState =>
-            (prevState === themes.light ? themes.dark : themes.light)
-        )
-    }
+const Movies: React.FC<{ title: string, filmCategory: string }> = (props) => {
+    const { title, filmCategory } = props;
+
+    const theme = useSelector(themeSelector);
 
     return (
-        <ThemeContext.Provider value={{ theme: theme, toggleTheme: toggleTheme }}>
-            <div className="main-container" style={{ color: theme.TextColor, backgroundColor: theme.backgroundColor }}>
+        <div className="main-container" style={{ color: theme.TextColor, backgroundColor: theme.backgroundColor }}>
 
+            <header>
                 <nav className="nav-menu">
                     <ul className="nav-menu-list">
                         <li>
@@ -40,14 +34,16 @@ const Movies = (props) => {
                         </li>
                     </ul>
                 </nav>
+            </header>
 
-                <h1 className="main-title">{props.title}</h1>
+            <main>
+                <h1 className="main-title">{title}</h1>
 
                 <ThemeButton></ThemeButton>
 
-                <Films filmCategory={props.filmCategory}></Films>
-            </div>
-        </ThemeContext.Provider>
+                <Films filmCategory={filmCategory}></Films>
+            </main>
+        </div>
     )
 }
 

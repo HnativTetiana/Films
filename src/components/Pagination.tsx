@@ -1,19 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { filmSelector } from "../store/selectors.ts"
+import { themeSelector } from "../store/selectors.ts";
 
-import { ThemeContext } from "../theme-context.js";
+const Pagination: React.FC<{ currentPage: number, pageHandler: (value: number) => void }> = (props) => {
 
-const Pagination = (props) => {
+    const { totalPages } = useSelector(filmSelector);
 
-    const { currentPage, totalPages, pageHandler } = props;
+    const { currentPage, pageHandler } = props;
 
-    const { theme } = useContext(ThemeContext);
+    const theme = useSelector(themeSelector);
 
     return (
         <>
             <p className="current-page">Current Page: {currentPage}</p>
             <div className="pagination-buttons">
                 <button
-                    className={`pagination-button ${theme.PaginationButtonClass}`}
+                    className={`${theme.PaginationButtonClass}`}
                     disabled={currentPage <= 1}
                     onClick={() => pageHandler(-1)}
                 >
@@ -21,7 +24,7 @@ const Pagination = (props) => {
                 </button>
 
                 <button
-                    className={`pagination-button ${theme.PaginationButtonClass}`}
+                    className={`${theme.PaginationButtonClass}`}
                     disabled={currentPage >= totalPages}
                     onClick={() => pageHandler(1)}
                 >

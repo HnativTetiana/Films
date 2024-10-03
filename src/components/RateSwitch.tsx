@@ -1,19 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
-import { ThemeContext } from "../theme-context.js";
+import { useSelector } from "react-redux";
 
-const RateSwitch = (props) => {
+import { themeSelector } from "../store/selectors.ts";
+
+const RateSwitch: React.FC<{ popularity: string }> = (props) => {
+
+    const { popularity } = props;
+
+    const theme = useSelector(themeSelector);
 
     const [switchState, setSwitchState] = useState(false);
 
     const SwitchHandler = () => setSwitchState(!switchState);
 
-    const { theme } = useContext(ThemeContext);
-
     return (
         <div className='rating'>
             {
-                switchState && <p className="show-rating" style={{ color: theme.RatingColor }}>{props.popularity}</p>
+                switchState && <span className="show-rating" style={{ color: theme.RatingColor }}>{popularity}</span>
             }
 
             <p
@@ -26,6 +30,5 @@ const RateSwitch = (props) => {
         </div>
     )
 }
-
 
 export default RateSwitch;
