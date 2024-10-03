@@ -1,4 +1,13 @@
-# Getting Started with Create React App
+## Some Settings
+
+1. npm install react-router-dom  - for routing
+2. npm install redux react-redux @reduxjs/toolkit - for using Redux
+3. npm install @types/react @types/react-dom - for using TS
+4. Also you need to add a div with id="modal" in the body of the index.html file
+
+## Here is the link to the site: https://films24.netlify.app
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
